@@ -1,9 +1,7 @@
+import { Layout } from "../../components/Layout";
+
 const MyAccount = () => {
-	return (
-		<>
-			<h2>MyAccount</h2>
-		</>
-	);
+	return <Layout>My account</Layout>;
 };
 
 export { MyAccount };

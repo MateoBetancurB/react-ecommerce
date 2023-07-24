@@ -1,9 +1,7 @@
+import { Layout } from "../../components/Layout";
+
 const NotFound = () => {
-	return (
-		<>
-			<h2>NotFound</h2>
-		</>
-	);
+	return <Layout>Not found</Layout>;
 };
 
 export { NotFound };
