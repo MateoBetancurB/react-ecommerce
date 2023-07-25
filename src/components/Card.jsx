@@ -1,4 +1,7 @@
+import { useEcommerce } from "../hooks/useEcommerce";
+
 const Card = (data) => {
+	const { incrementShoppingCart } = useEcommerce();
 	return (
 		<div className="bg-gray-200 cursor-pointer w-56 h-60 rounded-lg ">
 			<figure className="relative mb-2 w-full h-4/5">
@@ -10,7 +13,10 @@ const Card = (data) => {
 					src={data?.data?.image}
 					alt={data?.data?.title}
 				/>
-				<button className="absolute top-0 right-0 m-2 flex justify-center items-center bg-white w-6 h-6 rounded-full">
+				<button
+					className="absolute top-0 right-0 m-2 flex justify-center items-center bg-white w-6 h-6 rounded-full hover:bg-black color-black hover:text-white transition-colors duration-200"
+					onClick={incrementShoppingCart}
+				>
 					+
 				</button>
 			</figure>
