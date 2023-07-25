@@ -17,7 +17,7 @@ const Home = () => {
 
 	return (
 		<Layout>
-			<div className="grid gap-5 grid-cols-4 w-full max-w-screen-lg">
+			<div className="grid gap-5 sm:grid-cols-2 md:grid-cols-4 w-full max-w-screen-lg">
 				{items?.map((item) => (
 					<Card key={item.id} data={item} />
 				))}
