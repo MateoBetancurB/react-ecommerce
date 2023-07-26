@@ -1,6 +1,7 @@
 import { useEcommerce } from "../../hooks/useEcommerce";
 import { Layout } from "../../components/Layout";
 import { Card } from "../../components/Card";
+import { ProductDetail } from "../../components/ProductDetail";
 
 const Home = () => {
 	const { items } = useEcommerce();
@@ -12,6 +13,7 @@ const Home = () => {
 					<Card key={item.id} data={item} />
 				))}
 			</div>
+			<ProductDetail />
 		</Layout>
 	);
 };
