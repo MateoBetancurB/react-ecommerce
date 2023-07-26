@@ -5,6 +5,7 @@ const EcommerceContext = createContext();
 const EcommerceProvider = ({ children }) => {
 	const [items, setItems] = useState([]);
 	let [count, setCount] = useState(0);
+	const [isProductDetailOpen, setIsProductDetailOpen] = useState(false);
 
 	useEffect(() => {
 		const getApiData = async () => {
@@ -20,6 +21,9 @@ const EcommerceProvider = ({ children }) => {
 		setCount(count + 1);
 	};
 
+	const openProductDetail = () => setIsProductDetailOpen(true);
+	const closeProductDetail = () => setIsProductDetailOpen(false);
+
 	return (
 		<EcommerceContext.Provider
 			value={{
@@ -27,6 +31,9 @@ const EcommerceProvider = ({ children }) => {
 				count,
 				setCount,
 				incrementShoppingCart,
+				isProductDetailOpen,
+				openProductDetail,
+				closeProductDetail,
 			}}
 		>
 			{children}
