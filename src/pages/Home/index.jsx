@@ -1,19 +1,9 @@
-import { useState, useEffect } from "react";
+import { useEcommerce } from "../../hooks/useEcommerce";
 import { Layout } from "../../components/Layout";
 import { Card } from "../../components/Card";
 
 const Home = () => {
-	const [items, setItems] = useState([]);
-
-	useEffect(() => {
-		const getApiData = async () => {
-			const url = "https://fakestoreapi.com/products";
-			const response = await fetch(url);
-			const data = await response.json();
-			setItems(data);
-		};
-		getApiData();
-	}, []);
+	const { items } = useEcommerce();
 
 	return (
 		<Layout>
