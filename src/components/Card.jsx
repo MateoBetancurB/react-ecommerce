@@ -1,10 +1,11 @@
 import { useEcommerce } from "../hooks/useEcommerce";
 
 const Card = (data) => {
-	const { incrementShoppingCart, openProductDetail } = useEcommerce();
+	const { incrementShoppingCart, showProduct } = useEcommerce();
+
 	return (
 		<div
-			onClick={openProductDetail}
+			onClick={() => showProduct(data.data)}
 			className="bg-gray-200 cursor-pointer w-56 h-60 rounded-lg hover:bg "
 		>
 			<figure className="relative mb-2 w-full h-4/5">
