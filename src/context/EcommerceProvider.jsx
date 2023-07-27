@@ -3,9 +3,23 @@ import { createContext, useState, useEffect } from "react";
 const EcommerceContext = createContext();
 
 const EcommerceProvider = ({ children }) => {
+	//products from API
 	const [items, setItems] = useState([]);
+
+	//shopping cart - counter
 	let [count, setCount] = useState(0);
+
+	//product detail - open/close modal
 	const [isProductDetailOpen, setIsProductDetailOpen] = useState(false);
+	const openProductDetail = () => setIsProductDetailOpen(true);
+	const closeProductDetail = (e) => {
+		e.stopPropagation();
+		setProduct({});
+		setIsProductDetailOpen(false);
+	};
+
+	//product detail - show product
+	const [product, setProduct] = useState({});
 
 	useEffect(() => {
 		const getApiData = async () => {
@@ -21,8 +35,10 @@ const EcommerceProvider = ({ children }) => {
 		setCount(count + 1);
 	};
 
-	const openProductDetail = () => setIsProductDetailOpen(true);
-	const closeProductDetail = () => setIsProductDetailOpen(false);
+	const showProduct = (productDetail) => {
+		setProduct(productDetail);
+		openProductDetail();
+	};
 
 	return (
 		<EcommerceContext.Provider
@@ -34,6 +50,9 @@ const EcommerceProvider = ({ children }) => {
 				isProductDetailOpen,
 				openProductDetail,
 				closeProductDetail,
+				product,
+				setProduct,
+				showProduct,
 			}}
 		>
 			{children}
