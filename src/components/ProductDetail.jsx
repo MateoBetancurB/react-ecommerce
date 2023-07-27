@@ -1,11 +1,12 @@
 import { useEcommerce } from "../hooks/useEcommerce";
 
 const ProductDetail = () => {
-	const { isProductDetailOpen, closeProductDetail } = useEcommerce();
+	const { isProductDetailOpen, closeProductDetail, product } = useEcommerce();
+	console.log(product);
 	return (
 		<>
 			{isProductDetailOpen && (
-				<aside className="w-[260px] h-[calc(95vh-68px)] flex flex-col fixed right-0 border border-black rounded-lg bg-white">
+				<aside className="w-[260px] h-[calc(95vh-68px)] overflow-y-auto flex flex-col fixed right-0 border border-black rounded-lg bg-white pb-5">
 					<div className="flex justify-between items-center p-6">
 						<h2 className="font-bold text-lg">Product details</h2>
 						<button
@@ -28,6 +29,18 @@ const ProductDetail = () => {
 							</svg>
 						</button>
 					</div>
+					<figure className="p-4">
+						<img
+							className="w-full h-50% rounded-lg p-2 border border-black"
+							src={product.image}
+							alt={product.title}
+						/>
+					</figure>
+					<p className="flex flex-col px-6">
+						<span className="font-medium text-2xl">${product.price}</span>
+						<span className="font-medium text-md">{product.title}</span>
+						<span className="font-light text-md">{product.description}</span>
+					</p>
 				</aside>
 			)}
 		</>
