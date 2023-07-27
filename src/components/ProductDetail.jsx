@@ -2,7 +2,6 @@ import { useEcommerce } from "../hooks/useEcommerce";
 
 const ProductDetail = () => {
 	const { isProductDetailOpen, closeProductDetail, product } = useEcommerce();
-	console.log(product);
 	return (
 		<>
 			{isProductDetailOpen && (
