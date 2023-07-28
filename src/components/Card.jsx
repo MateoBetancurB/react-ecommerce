@@ -1,7 +1,7 @@
 import { useEcommerce } from "../hooks/useEcommerce";
 
 const Card = (data) => {
-	const { incrementShoppingCart, showProduct } = useEcommerce();
+	const { showProduct, addProductsToShoppingCart } = useEcommerce();
 
 	return (
 		<div
@@ -19,7 +19,7 @@ const Card = (data) => {
 				/>
 				<button
 					className="absolute top-0 right-0 m-2 flex justify-center items-center bg-white w-6 h-6 rounded-full hover:bg-black color-black hover:text-white transition-colors duration-200"
-					onClick={incrementShoppingCart}
+					onClick={(e) => addProductsToShoppingCart(e, data.data)}
 					aria-label="add product to shopping cart"
 				>
 					<svg
