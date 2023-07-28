@@ -18,8 +18,16 @@ const EcommerceProvider = ({ children }) => {
 		setIsProductDetailOpen(false);
 	};
 
+	//shopping cart - open/close modal
+	const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
+	const openCheckout = () => setIsCheckoutOpen(true);
+	const closeCheckout = () => setIsCheckoutOpen(false);
+
 	//product detail - show product
 	const [product, setProduct] = useState({});
+
+	//shopping cart
+	const [cartProducts, setCartProducts] = useState([]);
 
 	useEffect(() => {
 		const getApiData = async () => {
@@ -31,9 +39,14 @@ const EcommerceProvider = ({ children }) => {
 		getApiData();
 	}, []);
 
-	const incrementShoppingCart = () => {
-		setCount(count + 1);
+	const addProductsToShoppingCart = (e, productData) => {
+		e.stopPropagation();
+		setCartProducts([...cartProducts, productData]);
+		openCheckout();
+		incrementShoppingCart();
 	};
+
+	const incrementShoppingCart = () => setCount(count + 1);
 
 	const showProduct = (productDetail) => {
 		setProduct(productDetail);
@@ -53,6 +66,12 @@ const EcommerceProvider = ({ children }) => {
 				product,
 				setProduct,
 				showProduct,
+				cartProducts,
+				setCartProducts,
+				addProductsToShoppingCart,
+				isCheckoutOpen,
+				openCheckout,
+				closeCheckout,
 			}}
 		>
 			{children}
