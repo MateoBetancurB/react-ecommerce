@@ -53,6 +53,11 @@ const EcommerceProvider = ({ children }) => {
 		openProductDetail();
 	};
 
+	const deleteProductFromShoppingCart = (id) => {
+		const productsFilter = cartProducts.filter((product) => product.id != id);
+		setCartProducts(productsFilter);
+	};
+
 	return (
 		<EcommerceContext.Provider
 			value={{
@@ -72,6 +77,7 @@ const EcommerceProvider = ({ children }) => {
 				isCheckoutOpen,
 				openCheckout,
 				closeCheckout,
+				deleteProductFromShoppingCart,
 			}}
 		>
 			{children}
