@@ -1,11 +1,12 @@
 import { useEcommerce } from "../hooks/useEcommerce";
+import { OrderCard } from "./OrderCard";
 
 const Checkout = () => {
-	const { isCheckoutOpen, closeCheckout } = useEcommerce();
+	const { isCheckoutOpen, closeCheckout, cartProducts } = useEcommerce();
 	return (
 		<>
 			{isCheckoutOpen && (
-				<aside className="w-[260px] h-[calc(95vh-68px)] overflow-y-auto flex flex-col fixed right-0 border border-black rounded-lg top-20 bg-white pb-5">
+				<aside className="w-[360px] h-[calc(95vh-68px)] overflow-y-auto flex flex-col fixed right-3 border border-black rounded-lg top-20 bg-white pb-5">
 					<div className="flex justify-between items-center p-6">
 						<h2 className="font-bold text-lg">My Order</h2>
 						<button
@@ -28,6 +29,14 @@ const Checkout = () => {
 							</svg>
 						</button>
 					</div>
+					{cartProducts.map((product) => (
+						<OrderCard
+							key={product.id}
+							title={product.title}
+							image={product.image}
+							price={product.price}
+						/>
+					))}
 				</aside>
 			)}
 		</>
