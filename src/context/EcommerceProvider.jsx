@@ -6,9 +6,6 @@ const EcommerceProvider = ({ children }) => {
 	//products from API
 	const [items, setItems] = useState([]);
 
-	//shopping cart - counter
-	let [count, setCount] = useState(0);
-
 	//product detail - open/close modal
 	const [isProductDetailOpen, setIsProductDetailOpen] = useState(false);
 	const openProductDetail = () => setIsProductDetailOpen(true);
@@ -29,6 +26,9 @@ const EcommerceProvider = ({ children }) => {
 	//shopping cart
 	const [cartProducts, setCartProducts] = useState([]);
 
+	//shopping cart - counter
+	const count = cartProducts.length;
+
 	useEffect(() => {
 		const getApiData = async () => {
 			const url = "https://fakestoreapi.com/products";
@@ -43,10 +43,7 @@ const EcommerceProvider = ({ children }) => {
 		e.stopPropagation();
 		setCartProducts([...cartProducts, productData]);
 		openCheckout();
-		incrementShoppingCart();
 	};
-
-	const incrementShoppingCart = () => setCount(count + 1);
 
 	const showProduct = (productDetail) => {
 		setProduct(productDetail);
@@ -63,8 +60,6 @@ const EcommerceProvider = ({ children }) => {
 			value={{
 				items,
 				count,
-				setCount,
-				incrementShoppingCart,
 				isProductDetailOpen,
 				openProductDetail,
 				closeProductDetail,
