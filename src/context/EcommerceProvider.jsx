@@ -26,6 +26,9 @@ const EcommerceProvider = ({ children }) => {
 	//shopping cart
 	const [cartProducts, setCartProducts] = useState([]);
 
+	//shopping cart - order
+	const [order, setOrder] = useState([]);
+
 	//shopping cart - counter
 	const count = cartProducts.length;
 
@@ -80,6 +83,8 @@ const EcommerceProvider = ({ children }) => {
 				closeCheckout,
 				deleteProductFromShoppingCart,
 				totalPrice,
+				order,
+				setOrder,
 			}}
 		>
 			{children}
@@ -88,3 +93,6 @@ const EcommerceProvider = ({ children }) => {
 };
 
 export { EcommerceProvider, EcommerceContext };
+
+//TODO: format price
+//TODO: assign to order random date
