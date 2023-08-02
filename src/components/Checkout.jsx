@@ -2,7 +2,8 @@ import { useEcommerce } from "../hooks/useEcommerce";
 import { OrderCard } from "./OrderCard";
 
 const Checkout = () => {
-	const { isCheckoutOpen, closeCheckout, cartProducts } = useEcommerce();
+	const { isCheckoutOpen, closeCheckout, cartProducts, totalPrice } =
+		useEcommerce();
 	return (
 		<>
 			{isCheckoutOpen && (
@@ -29,6 +30,13 @@ const Checkout = () => {
 							</svg>
 						</button>
 					</div>
+					{cartProducts.length > 0 ? (
+						<h1 className="px-4 pb-3 text-end">
+							Total: <span className="font-bold text-lg">${totalPrice}</span>
+						</h1>
+					) : (
+						<p className="p-4 text-center">Shopping cart is empty</p>
+					)}
 					{cartProducts.map((product) => (
 						<OrderCard
 							key={product.id}
