@@ -2,8 +2,27 @@ import { useEcommerce } from "../hooks/useEcommerce";
 import { OrderCard } from "./OrderCard";
 
 const Checkout = () => {
-	const { isCheckoutOpen, closeCheckout, cartProducts, totalPrice } =
-		useEcommerce();
+	const {
+		isCheckoutOpen,
+		closeCheckout,
+		cartProducts,
+		setCartProducts,
+		totalPrice,
+		order,
+		setOrder,
+	} = useEcommerce();
+
+	const handleCheckout = () => {
+		const orderToAdd = {
+			date: "01/02/2023",
+			products: cartProducts,
+			totalProducts: cartProducts.length,
+			totalPrice: totalPrice,
+		};
+		setOrder([...order, orderToAdd]);
+		setCartProducts([]);
+	};
+
 	return (
 		<>
 			{isCheckoutOpen && (
@@ -30,13 +49,23 @@ const Checkout = () => {
 							</svg>
 						</button>
 					</div>
-					{cartProducts.length > 0 ? (
-						<h1 className="px-4 pb-3 text-end">
-							Total: <span className="font-bold text-lg">${totalPrice}</span>
-						</h1>
-					) : (
-						<p className="p-4 text-center">Shopping cart is empty</p>
-					)}
+					<div className="flex justify-center py-4 items-center">
+						{cartProducts.length > 0 && (
+							<button
+								onClick={() => handleCheckout()}
+								className="bg-blue-200 w-[150px] py-2 rounded-lg hover:bg-blue-300 transition-colors shadow-md"
+							>
+								Checkout
+							</button>
+						)}
+						{cartProducts.length > 0 ? (
+							<h1 className="px-4 pb-3 text-end">
+								Total: <span className="font-bold text-lg">${totalPrice}</span>
+							</h1>
+						) : (
+							<p className="p-4 text-center">Shopping cart is empty</p>
+						)}
+					</div>
 					{cartProducts.map((product) => (
 						<OrderCard
 							key={product.id}
