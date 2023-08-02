@@ -55,6 +55,12 @@ const EcommerceProvider = ({ children }) => {
 		setCartProducts(productsFilter);
 	};
 
+	// calc shopping cart total price
+	const totalPrice = cartProducts.reduce(
+		(acc, product) => acc + product.price,
+		0
+	);
+
 	return (
 		<EcommerceContext.Provider
 			value={{
@@ -73,6 +79,7 @@ const EcommerceProvider = ({ children }) => {
 				openCheckout,
 				closeCheckout,
 				deleteProductFromShoppingCart,
+				totalPrice,
 			}}
 		>
 			{children}
