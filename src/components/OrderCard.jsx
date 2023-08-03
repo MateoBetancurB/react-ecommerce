@@ -1,13 +1,9 @@
 import { useEcommerce } from "../hooks/useEcommerce";
+import { truncateTitle } from "../helpers";
 
 const OrderCard = (props) => {
 	const { id, title, image, price } = props;
 	const { deleteProductFromShoppingCart } = useEcommerce();
-
-	const truncateTitle = (title, numWords) => {
-		const words = title.split(" ");
-		return words.slice(0, numWords).join(" ");
-	};
 
 	return (
 		<div className="flex justify-between p-4 hover:bg-gray-200">
