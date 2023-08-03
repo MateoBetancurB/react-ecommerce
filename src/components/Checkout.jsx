@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useEcommerce } from "../hooks/useEcommerce";
 import { OrderCard } from "./OrderCard";
 
@@ -20,6 +21,7 @@ const Checkout = () => {
 			totalPrice: totalPrice,
 		};
 		setOrder([...order, orderToAdd]);
+		closeCheckout();
 		setCartProducts([]);
 	};
 
@@ -51,12 +53,14 @@ const Checkout = () => {
 					</div>
 					<div className="flex justify-center py-4 items-center">
 						{cartProducts.length > 0 && (
-							<button
-								onClick={() => handleCheckout()}
-								className="bg-blue-200 w-[150px] py-2 rounded-lg hover:bg-blue-300 transition-colors shadow-md"
-							>
-								Checkout
-							</button>
+							<Link to="/my-orders/last">
+								<button
+									onClick={() => handleCheckout()}
+									className="bg-blue-200 w-[150px] py-2 rounded-lg hover:bg-blue-300 transition-colors shadow-md"
+								>
+									Checkout
+								</button>
+							</Link>
 						)}
 						{cartProducts.length > 0 ? (
 							<h1 className="px-4 pb-3 text-end">
@@ -68,11 +72,11 @@ const Checkout = () => {
 					</div>
 					{cartProducts.map((product) => (
 						<OrderCard
-							key={product.id}
-							id={product.id}
-							title={product.title}
-							image={product.image}
-							price={product.price}
+							key={product?.id}
+							id={product?.id}
+							title={product?.title}
+							image={product?.image}
+							price={product?.price}
 						/>
 					))}
 				</aside>
