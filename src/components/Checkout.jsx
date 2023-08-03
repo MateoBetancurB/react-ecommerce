@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useEcommerce } from "../hooks/useEcommerce";
 import { OrderCard } from "./OrderCard";
+import { truncateTitle } from "../helpers";
 
 const Checkout = () => {
 	const {
@@ -74,7 +75,7 @@ const Checkout = () => {
 						<OrderCard
 							key={product?.id}
 							id={product?.id}
-							title={product?.title}
+							title={truncateTitle(product?.title, 3)}
 							image={product?.image}
 							price={product?.price}
 						/>
