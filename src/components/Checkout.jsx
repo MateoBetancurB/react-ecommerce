@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useEcommerce } from "../hooks/useEcommerce";
 import { OrderCard } from "./OrderCard";
-import { truncateTitle } from "../helpers";
+import { truncateTitle, randomId, formatDate } from "../helpers";
 
 const Checkout = () => {
 	const {
@@ -16,7 +16,8 @@ const Checkout = () => {
 
 	const handleCheckout = () => {
 		const orderToAdd = {
-			date: "01/02/2023",
+			id: randomId(),
+			date: formatDate(new Date()),
 			products: cartProducts,
 			totalProducts: cartProducts.length,
 			totalPrice: totalPrice,
