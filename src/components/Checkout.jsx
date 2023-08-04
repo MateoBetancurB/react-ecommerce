@@ -12,6 +12,7 @@ const Checkout = () => {
 		totalPrice,
 		order,
 		setOrder,
+		setSearchByTitle,
 	} = useEcommerce();
 
 	const handleCheckout = () => {
@@ -25,6 +26,7 @@ const Checkout = () => {
 		setOrder([...order, orderToAdd]);
 		closeCheckout();
 		setCartProducts([]);
+		setSearchByTitle("");
 	};
 
 	return (
