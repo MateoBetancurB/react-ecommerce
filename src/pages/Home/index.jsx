@@ -4,23 +4,19 @@ import { Card } from "../../components/Card";
 import { ProductDetail } from "../../components/ProductDetail";
 
 const Home = () => {
-	const { items, inputSearch, setInputSearch, filteredItems } = useEcommerce();
+	const { searchByTitle, setSearchByTitle, filteredItems } = useEcommerce();
 
 	const handleChange = (e) => {
-		setInputSearch(e.target.value);
+		setSearchByTitle(e.target.value);
 	};
 
 	const renderView = () => {
-		if (inputSearch.length > 0) {
-			if (filteredItems.length > 0) {
-				return filteredItems.map((item) => <Card key={item.id} data={item} />);
-			} else {
-				return (
-					<p className="col-span-4 text-center font-bold">No results found</p>
-				);
-			}
+		if (filteredItems.length > 0) {
+			return filteredItems.map((item) => <Card key={item.id} data={item} />);
 		} else {
-			return items.map((item) => <Card key={item.id} data={item} />);
+			return (
+				<p className="col-span-4 text-center font-bold">No results found</p>
+			);
 		}
 	};
 
@@ -28,7 +24,7 @@ const Home = () => {
 		<Layout>
 			<input
 				onChange={handleChange}
-				value={inputSearch}
+				value={searchByTitle}
 				type="text"
 				placeholder="Search a product..."
 				className="rounded-lg border border-black w-80 px-4 py-2 mt-4 mb-7"
