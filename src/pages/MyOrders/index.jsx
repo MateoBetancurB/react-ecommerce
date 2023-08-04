@@ -9,7 +9,7 @@ const MyOrders = () => {
 	return (
 		<Layout>
 			<div className="flex items-center justify-center gap-5 pt-10 pb-5 w-80 ">
-				<h1>My orders</h1>
+				<h1 className="font-extrabold text-lg">My orders</h1>
 			</div>
 			{order.map((order, index) => (
 				<Link key={index} to={`/my-orders/${order.id}`}>
