@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect, useMemo } from "react";
+import { createContext, useState, useEffect } from "react";
 
 const EcommerceContext = createContext();
 
@@ -28,7 +28,8 @@ const EcommerceProvider = ({ children }) => {
 	const count = cartProducts.length;
 
 	//input search products
-	const [inputSearch, setInputSearch] = useState("");
+	const [searchByTitle, setSearchByTitle] = useState("");
+	const [searchByCategory, setSearchByCategory] = useState(null);
 
 	useEffect(() => {
 		const getApiData = async () => {
@@ -40,15 +41,60 @@ const EcommerceProvider = ({ children }) => {
 		getApiData();
 	}, []);
 
-	const filteredProducts = (items, inputSearch) => {
+	const filteredItemsByTitle = (items, searchByTitle) => {
 		return items?.filter((item) =>
-			item.title.toLowerCase().includes(inputSearch.toLowerCase())
+			item.title.toLowerCase().includes(searchByTitle.toLowerCase())
 		);
 	};
 
+	const filteredItemsByCategory = (items, searchByCategory) => {
+		return items?.filter((item) =>
+			item.category.toLowerCase().includes(searchByCategory.toLowerCase())
+		);
+	};
+
+	const filterBy = (searchType, items, searchByTitle, searchByCategory) => {
+		if (searchType === "BY_TITLE") {
+			return filteredItemsByTitle(items, searchByTitle);
+		}
+
+		if (searchType === "BY_CATEGORY") {
+			return filteredItemsByCategory(items, searchByCategory);
+		}
+
+		if (searchType === "BY_TITLE_AND_CATEGORY") {
+			return filteredItemsByCategory(items, searchByCategory).filter((item) =>
+				item.title.toLowerCase().includes(searchByTitle.toLowerCase())
+			);
+		}
+
+		if (!searchType) {
+			return items;
+		}
+	};
+
 	useEffect(() => {
-		if (inputSearch) setFilteredItems(filteredProducts(items, inputSearch));
-	}, [items, inputSearch]);
+		if (searchByTitle && searchByCategory)
+			setFilteredItems(
+				filterBy(
+					"BY_TITLE_AND_CATEGORY",
+					items,
+					searchByTitle,
+					searchByCategory
+				)
+			);
+		if (searchByTitle && !searchByCategory)
+			setFilteredItems(
+				filterBy("BY_TITLE", items, searchByTitle, searchByCategory)
+			);
+		if (!searchByTitle && searchByCategory)
+			setFilteredItems(
+				filterBy("BY_CATEGORY", items, searchByTitle, searchByCategory)
+			);
+		if (!searchByTitle && !searchByCategory)
+			setFilteredItems(filterBy(null, items, searchByTitle, searchByCategory));
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [items, searchByTitle, searchByCategory]);
 
 	const openProductDetail = () => setIsProductDetailOpen(true);
 	const closeProductDetail = (e) => {
@@ -102,10 +148,12 @@ const EcommerceProvider = ({ children }) => {
 				totalPrice,
 				order,
 				setOrder,
-				inputSearch,
-				setInputSearch,
+				searchByTitle,
+				setSearchByTitle,
 				filteredItems,
 				setFilteredItems,
+				searchByCategory,
+				setSearchByCategory,
 			}}
 		>
 			{children}
