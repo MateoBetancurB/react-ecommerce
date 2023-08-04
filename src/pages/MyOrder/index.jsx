@@ -1,10 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Layout } from "../../components/Layout";
 import { useEcommerce } from "../../hooks/useEcommerce";
 import { OrderCard } from "../../components/OrderCard";
 
 const MyOrder = () => {
 	const { order } = useEcommerce();
+	const { id } = useParams();
+	let orderToShow =
+		id === undefined
+			? order?.slice(-1)[0]
+			: order?.filter((order) => order.id === id)[0];
 
 	return (
 		<Layout>
@@ -31,13 +36,13 @@ const MyOrder = () => {
 				<h2 className="font-extrabold">My Order</h2>
 			</div>
 			<div>
-				{order?.slice(-1)[0].products.map((product) => (
+				{orderToShow?.products.map((item) => (
 					<OrderCard
-						key={product.id}
-						id={product.id}
-						title={product.title}
-						image={product.image}
-						price={product.price}
+						key={item.id}
+						id={item.id}
+						title={item.title}
+						image={item.image}
+						price={item.price}
 					/>
 				))}
 			</div>
