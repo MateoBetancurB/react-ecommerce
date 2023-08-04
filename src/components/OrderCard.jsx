@@ -17,7 +17,7 @@ const OrderCard = (props) => {
 				</figure>
 				<div>
 					<h3 className="text-sm font-light">{truncateTitle(title, 5)}</h3>
-					<p className="text-md font-extrabold">${price}</p>
+					<p className="text-md font-extrabold">${Math.ceil(price)}</p>
 				</div>
 			</div>
 			<div className="flex items-center gap-4">
