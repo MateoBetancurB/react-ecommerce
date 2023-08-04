@@ -58,7 +58,7 @@ const Checkout = () => {
 							<Link to="/my-orders/last">
 								<button
 									onClick={() => handleCheckout()}
-									className="bg-blue-200 w-[150px] py-2 rounded-lg hover:bg-blue-300 transition-colors shadow-md"
+									className="bg-black text-white w-[150px] py-2 rounded-lg hover:bg-gray-800 transition-colors shadow-md"
 								>
 									Checkout
 								</button>
@@ -66,7 +66,10 @@ const Checkout = () => {
 						)}
 						{cartProducts.length > 0 ? (
 							<h1 className="px-4 pb-3 text-end">
-								Total: <span className="font-bold text-lg">${totalPrice}</span>
+								Total:{" "}
+								<span className="font-bold text-lg">
+									${Math.ceil(totalPrice)}
+								</span>
 							</h1>
 						) : (
 							<p className="p-4 text-center">Shopping cart is empty</p>
@@ -78,7 +81,7 @@ const Checkout = () => {
 							id={product?.id}
 							title={truncateTitle(product?.title, 3)}
 							image={product?.image}
-							price={product?.price}
+							price={Math.ceil(product?.price)}
 						/>
 					))}
 				</aside>
