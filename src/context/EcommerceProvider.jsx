@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useMemo } from "react";
 
 const EcommerceContext = createContext();
 
@@ -6,19 +6,14 @@ const EcommerceProvider = ({ children }) => {
 	//products from API
 	const [items, setItems] = useState([]);
 
-	//product detail - open/close modal
-	const [isProductDetailOpen, setIsProductDetailOpen] = useState(false);
-	const openProductDetail = () => setIsProductDetailOpen(true);
-	const closeProductDetail = (e) => {
-		e.stopPropagation();
-		setProduct({});
-		setIsProductDetailOpen(false);
-	};
+	//filtered items
+	const [filteredItems, setFilteredItems] = useState([]);
 
 	//shopping cart - open/close modal
 	const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
-	const openCheckout = () => setIsCheckoutOpen(true);
-	const closeCheckout = () => setIsCheckoutOpen(false);
+
+	//product detail - open/close modal
+	const [isProductDetailOpen, setIsProductDetailOpen] = useState(false);
 
 	//product detail - show product
 	const [product, setProduct] = useState({});
@@ -32,6 +27,9 @@ const EcommerceProvider = ({ children }) => {
 	//shopping cart - counter
 	const count = cartProducts.length;
 
+	//input search products
+	const [inputSearch, setInputSearch] = useState("");
+
 	useEffect(() => {
 		const getApiData = async () => {
 			const url = "https://fakestoreapi.com/products";
@@ -41,6 +39,25 @@ const EcommerceProvider = ({ children }) => {
 		};
 		getApiData();
 	}, []);
+
+	const filteredProducts = (items, inputSearch) => {
+		return items?.filter((item) =>
+			item.title.toLowerCase().includes(inputSearch.toLowerCase())
+		);
+	};
+
+	useEffect(() => {
+		if (inputSearch) setFilteredItems(filteredProducts(items, inputSearch));
+	}, [items, inputSearch]);
+
+	const openProductDetail = () => setIsProductDetailOpen(true);
+	const closeProductDetail = (e) => {
+		e.stopPropagation();
+		setProduct({});
+		setIsProductDetailOpen(false);
+	};
+	const openCheckout = () => setIsCheckoutOpen(true);
+	const closeCheckout = () => setIsCheckoutOpen(false);
 
 	const addProductsToShoppingCart = (e, productData) => {
 		e.stopPropagation();
@@ -85,6 +102,10 @@ const EcommerceProvider = ({ children }) => {
 				totalPrice,
 				order,
 				setOrder,
+				inputSearch,
+				setInputSearch,
+				filteredItems,
+				setFilteredItems,
 			}}
 		>
 			{children}
