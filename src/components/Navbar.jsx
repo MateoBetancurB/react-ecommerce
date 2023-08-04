@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useEcommerce } from "../hooks/useEcommerce";
 const Navbar = () => {
-	const { count } = useEcommerce();
+	const { count, setSearchByCategory } = useEcommerce();
 	const activeStyle = "underline underline-offset-4 teal-200";
 
 	return (
@@ -13,6 +13,7 @@ const Navbar = () => {
 				<li>
 					<NavLink
 						to="/"
+						onClick={() => setSearchByCategory("")}
 						className={({ isActive }) => (isActive ? activeStyle : undefined)}
 					>
 						All
@@ -20,15 +21,17 @@ const Navbar = () => {
 				</li>
 				<li>
 					<NavLink
-						to="/clothes"
+						to="/man-clothes"
+						onClick={() => setSearchByCategory("men's clothing")}
 						className={({ isActive }) => (isActive ? activeStyle : undefined)}
 					>
-						Clothes
+						Man Clothes
 					</NavLink>
 				</li>
 				<li>
 					<NavLink
 						to="/electronics"
+						onClick={() => setSearchByCategory("electronics")}
 						className={({ isActive }) => (isActive ? activeStyle : undefined)}
 					>
 						Electronics
@@ -36,26 +39,20 @@ const Navbar = () => {
 				</li>
 				<li>
 					<NavLink
-						to="/fornitures"
+						to="/jewelery"
+						onClick={() => setSearchByCategory("jewelery")}
 						className={({ isActive }) => (isActive ? activeStyle : undefined)}
 					>
-						Fornitures
+						Jewelery
 					</NavLink>
 				</li>
 				<li>
 					<NavLink
-						to="/toys"
+						to="/woman-clothes"
+						onClick={() => setSearchByCategory("women's clothing")}
 						className={({ isActive }) => (isActive ? activeStyle : undefined)}
 					>
-						Toys
-					</NavLink>
-				</li>
-				<li>
-					<NavLink
-						to="/others"
-						className={({ isActive }) => (isActive ? activeStyle : undefined)}
-					>
-						Others
+						Woman Clothes
 					</NavLink>
 				</li>
 			</ul>
