@@ -93,6 +93,3 @@ const EcommerceProvider = ({ children }) => {
 };
 
 export { EcommerceProvider, EcommerceContext };
-
-//TODO: format price
-//TODO: assign to order random date
