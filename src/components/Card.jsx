@@ -70,7 +70,9 @@ const Card = (data) => {
 			</figure>
 			<p className="flex justify-between px-3">
 				<span className="text-sm font-light truncate">{data?.data?.title}</span>
-				<span className="text-lg font-bold">${data?.data?.price}</span>
+				<span className="text-lg font-bold">
+					${Math.ceil(data?.data?.price)}
+				</span>
 			</p>
 		</div>
 	);
