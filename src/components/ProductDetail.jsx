@@ -5,7 +5,7 @@ const ProductDetail = () => {
 	return (
 		<>
 			{isProductDetailOpen && (
-				<aside className="w-[260px] h-[calc(95vh-68px)] overflow-y-auto flex flex-col fixed right-0 border border-black rounded-lg bg-white pb-5">
+				<aside className="w-[260px] h-[calc(95vh-68px)] overflow-y-auto flex flex-col fixed left-3 border border-black rounded-lg bg-white pb-5">
 					<div className="flex justify-between items-center p-6">
 						<h2 className="font-bold text-lg">Product details</h2>
 						<button
