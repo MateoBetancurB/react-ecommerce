@@ -5,6 +5,7 @@ const EcommerceContext = createContext();
 const EcommerceProvider = ({ children }) => {
 	//products from API
 	const [items, setItems] = useState([]);
+	const [isLoading, setIsLoading] = useState(false);
 
 	//filtered items
 	const [filteredItems, setFilteredItems] = useState([]);
@@ -32,13 +33,27 @@ const EcommerceProvider = ({ children }) => {
 	const [searchByCategory, setSearchByCategory] = useState(null);
 
 	useEffect(() => {
-		const getApiData = async () => {
-			const url = "https://fakestoreapi.com/products";
-			const response = await fetch(url);
-			const data = await response.json();
-			setItems(data);
-		};
-		getApiData();
+		setIsLoading(true);
+		try {
+			const getApiData = async () => {
+				const url = "https://fakestoreapi.com/products";
+				const response = await fetch(url);
+				if (!response.ok) {
+					throw new Error("Error HTTP:" + response.status);
+				}
+				const data = await response.json();
+				setItems(data);
+			};
+			getApiData()
+				.catch((error) => {
+					console.log(error);
+				})
+				.finally(() => {
+					setIsLoading(false);
+				});
+		} catch (error) {
+			console.log(error);
+		}
 	}, []);
 
 	const filteredItemsByTitle = (items, searchByTitle) => {
@@ -131,6 +146,7 @@ const EcommerceProvider = ({ children }) => {
 		<EcommerceContext.Provider
 			value={{
 				items,
+				isLoading,
 				count,
 				isProductDetailOpen,
 				openProductDetail,
