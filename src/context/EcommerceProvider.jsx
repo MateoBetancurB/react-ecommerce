@@ -20,7 +20,11 @@ const EcommerceProvider = ({ children }) => {
 	const [product, setProduct] = useState({});
 
 	//shopping cart
-	const [cartProducts, setCartProducts] = useState([]);
+	const [cartProducts, setCartProducts] = useState(
+		localStorage.getItem("cartProducts")
+			? JSON.parse(localStorage.getItem("cartProducts"))
+			: []
+	);
 
 	//shopping cart - order
 	const [order, setOrder] = useState([]);
@@ -124,6 +128,7 @@ const EcommerceProvider = ({ children }) => {
 		e.stopPropagation();
 		setCartProducts([...cartProducts, productData]);
 		openCheckout();
+		localStorage.setItem("cartProducts", JSON.stringify(cartProducts));
 	};
 
 	const showProduct = (productDetail) => {
@@ -134,6 +139,7 @@ const EcommerceProvider = ({ children }) => {
 	const deleteProductFromShoppingCart = (id) => {
 		const productsFilter = cartProducts.filter((product) => product.id != id);
 		setCartProducts(productsFilter);
+		localStorage.setItem("cartProducts", JSON.stringify(productsFilter));
 	};
 
 	// calc shopping cart total price
@@ -178,3 +184,7 @@ const EcommerceProvider = ({ children }) => {
 };
 
 export { EcommerceProvider, EcommerceContext };
+
+//TODO: boton seguir comprando
+//TODO: ver todas las ordenes
+//TODO: local storage
