@@ -184,7 +184,3 @@ const EcommerceProvider = ({ children }) => {
 };
 
 export { EcommerceProvider, EcommerceContext };
-
-//TODO: boton seguir comprando
-//TODO: ver todas las ordenes
-//TODO: local storage
